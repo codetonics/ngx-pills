@@ -1,0 +1,11 @@
+<div class="main-container" [ngClass]="mainContainerClass">
+  <div #pillsContainer class="pills-container" [ngClass]="backpacePressed? 'delete-mode' : ''">
+    <span class="pill" *ngFor="let pill of pills" [ngClass]="pill == duplicate ? 'duplicate' : ''">
+      {{pill}}
+      <span class="delete-icon" (click)="removePill(pill)"></span>
+    </span>
+  </div>
+  <div class="pills-textbox-container">
+    <input #pillsTextbox type="text" class="pills-textbox" [placeholder]="placeholder" (keydown)="onKeydown($event)">
+  </div>
+</div>
