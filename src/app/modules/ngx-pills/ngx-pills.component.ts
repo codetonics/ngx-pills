@@ -32,30 +32,72 @@ export class NgxPillsComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Add new pill
+   *
+   * @param {String} text
+   * @memberof NgxPillsComponent
+   */
   addPill(text) {
     this.pills.push(text);
   }
 
+  /**
+   * Can add more pills or not depend on maxPills
+   *
+   * @returns {Boolean}
+   * @memberof NgxPillsComponent
+   */
   canAddPill() {
     return this.pills.length < this.maxPills;
   }
 
+  /**
+   * Return true if passed value exists in pills
+   *
+   * @param {any} text
+   * @returns {Boolean}
+   * @memberof NgxPillsComponent
+   */
   isDuplicate(text) {
     return this.pills.indexOf(text) === -1 ? false : true;
   }
 
+
+  /**
+   * Mark item as duplicated
+   *
+   * @param {String} text
+   * @memberof NgxPillsComponent
+   */
   markAsDuplicate(text) {
     this.duplicate = text;
   }
 
+  /**
+   * Reset duplicate value
+   *
+   * @memberof NgxPillsComponent
+   */
   resetDuplicate() {
     this.duplicate = '';
   }
 
+  /**
+   * Remove item from pills
+   *
+   * @param {any} text
+   * @memberof NgxPillsComponent
+   */
   removePill(text) {
     this.pills.splice(this.pills.indexOf(text), 1);
   }
 
+  /**
+   * Remove last item from pills
+   *
+   * @memberof NgxPillsComponent
+   */
   removeLastPill() {
     if (this.pills.length > 0) {
       const lastKey = this.pills[this.pills.length - 1];
@@ -63,10 +105,21 @@ export class NgxPillsComponent implements OnInit {
     }
   }
 
+  /**
+   * Clear value in textbox
+   *
+   * @memberof NgxPillsComponent
+   */
   clearTextbox() {
     this.pillsTextbox.nativeElement.value = '';
   }
 
+  /**
+   * Handle keydown event on textbox
+   *
+   * @param {any} $event
+   * @memberof NgxPillsComponent
+   */
   onKeydown($event) {
     switch ($event.key) {
       case 'Backspace': this.onBackspaceKeydown($event); break;
@@ -75,6 +128,12 @@ export class NgxPillsComponent implements OnInit {
     }
   }
 
+  /**
+   * Handle enter keydown event on textbox
+   *
+   * @param {any} $event
+   * @memberof NgxPillsComponent
+   */
   onEnterKeydown($event) {
     const text: String = (this.pillsTextbox.nativeElement.value).trim();
     if (this.canAddPill() && text.length > 0) {
@@ -92,6 +151,13 @@ export class NgxPillsComponent implements OnInit {
     }
   }
 
+  /**
+   * Handle backspace keydown event on textbox
+   *
+   * @param {any} $event
+   * @returns
+   * @memberof NgxPillsComponent
+   */
   onBackspaceKeydown($event) {
     const text: String = this.pillsTextbox.nativeElement.value;
     if (!this.backpacePressed && text.length === 0) {
@@ -104,6 +170,12 @@ export class NgxPillsComponent implements OnInit {
     }
   }
 
+  /**
+   * Handle any keydown event on textbox except enter and backspace
+   *
+   * @param {any} $event
+   * @memberof NgxPillsComponent
+   */
   onAnyOtherKeyDown($event) {
     this.backpacePressed = false;
     this.resetDuplicate();
